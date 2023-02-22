@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <title>Simple Board</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<div class="topnav">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+</div>
+
+<div class="content">
+    <h2>Simple Board</h2>
+    <div class = "img">
+        <a href="/posts">
+            <img src="image/main.png" alt="HTML tutorial" style="height:200px;">
+        </a>
+    </div>
+</div>
+
+<div class="footer">
+    <div th:replace="fragments/footer :: footer" />
+</div>
+
+</body>
+</html>
+
+
