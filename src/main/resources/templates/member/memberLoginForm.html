@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header" />
+<head th:replace="~{fragments/header :: header}" />
 <style>
       .fieldError {
           border-color: #bd2130;
@@ -75,7 +75,7 @@ span.psw {
 }
 </style>
 <div class="body">
-  <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+  <div th:replace="~{fragments/bodyHeader :: bodyHeader}"/>
   <form th:action="@{/login}" method="post">
     <div th:if="${param.error}">
       <div class="alert alert-danger">
@@ -97,7 +97,7 @@ span.psw {
   </div>
 </form>
   <br/>
-  <div th:replace="fragments/footer :: footer" />
+  <div th:replace="~{fragments/footer :: footer}" />
 </div> <!-- /container -->
 </body>
 </html>

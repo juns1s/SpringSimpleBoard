@@ -28,14 +28,15 @@ public class UserSecurityService implements UserDetailsService {
     private final MemberRepository memberRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Member> members = memberRepository.findByuserName(username);
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+        Optional<Member> members = memberRepository.findByuserName(userName);
         if(members.isEmpty()){
             throw new UsernameNotFoundException("사용자를 찾을 수 없습니다.");
         }
         Member member = members.get();
+        System.out.println("검색된 맴버: "+member.getUserName());
         List<GrantedAuthority> authorities = new ArrayList<>();
-        if("admin".equals(username)){
+        if("admin".equals(userName)){
             authorities.add(new SimpleGrantedAuthority(UserRole.ADMIN.getValue()));
         }
         else{

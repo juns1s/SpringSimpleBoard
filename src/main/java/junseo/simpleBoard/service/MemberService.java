@@ -6,6 +6,7 @@ import junseo.simpleBoard.controller.MemberForm;
 import junseo.simpleBoard.domain.Member;
 import junseo.simpleBoard.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
+@Slf4j
 public class MemberService {
 
     private final MemberRepository memberRepository;
@@ -32,6 +34,7 @@ public class MemberService {
         member.setUserName(form.getUserName());
         member.setNickName(form.getNickName());
         member.setPassword(passwordEncoder.encode(form.getPassword()));
+        System.out.println(member.getPassword());
 
         memberRepository.save(member);
         return member;
