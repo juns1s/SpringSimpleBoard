@@ -4,6 +4,7 @@ import jakarta.persistence.NoResultException;
 import junseo.simpleBoard.controller.LoginForm;
 import junseo.simpleBoard.controller.MemberForm;
 import junseo.simpleBoard.domain.Member;
+import junseo.simpleBoard.domain.UserRole;
 import junseo.simpleBoard.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +33,11 @@ public class MemberService {
 
         Member member = new Member();
         member.setUserName(form.getUserName());
+        if(form.getUserName()=="admin"){
+            member.setRole(UserRole.ADMIN);
+        } else{
+          member.setRole(UserRole.USER);
+        }
         member.setNickName(form.getNickName());
         member.setPassword(passwordEncoder.encode(form.getPassword()));
         System.out.println(member.getPassword());

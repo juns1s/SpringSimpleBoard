@@ -19,6 +19,9 @@ public class Member {
     private String nickName;
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
+
     @OneToMany(mappedBy = "member")
     private List<Post> posts = new ArrayList<>();
 }

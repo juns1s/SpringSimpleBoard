@@ -1,10 +1,13 @@
 package junseo.simpleBoard.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import junseo.simpleBoard.PrincipalDetail;
 import junseo.simpleBoard.domain.Member;
 import junseo.simpleBoard.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -40,5 +43,13 @@ public class MemberController {
     @GetMapping("/login")
     public String login(){
         return "/member/memberLoginForm";
+    }
+
+    @GetMapping("/myPage")
+    public String myPage(@AuthenticationPrincipal PrincipalDetail principal, Model model){
+        String userName = principal.getUsername();
+        model.addAttribute("userName", userName);
+        System.out.println(userName);
+        return "member/myPage";
     }
 }
