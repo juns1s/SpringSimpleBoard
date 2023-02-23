@@ -1,80 +1,57 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header}" />
-
-<body>
 <style>
-  /* Bordered form */
-form {
-  border: 3px solid #f1f1f1;
-}
-
-/* Full-width inputs */
-input[type=text], input[type=password] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-}
-
-/* Set a style for all buttons */
-button {
-  background-color: #04AA6D;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
+.post-table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
   width: 100%;
 }
 
-/* Add a hover effect for buttons */
-button:hover {
-  opacity: 0.8;
+.post-table td, .post-table th {
+  border: 1px solid #ddd;
+  padding: 8px;
 }
 
+.post-table tr:nth-child(even){background-color: #f2f2f2;}
 
-/* Center the avatar image inside this container */
-.imgcontainer {
+.post-table tr:hover {background-color: #ddd;}
+
+.post-table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
   text-align: center;
-  margin: 24px 0 12px 0;
-}
-
-/* Avatar image */
-img.avatar {
-  width: 15%;
-  border-radius: 23%;
-}
-
-/* Add padding to containers */
-.container {
-  padding: 16px;
-}
-
-/* The "Forgot password" text */
-span.psw {
-  float: right;
-  padding-top: 16px;
-}
-
-/* Change styles for span and cancel button on extra small screens */
-@media screen and (max-width: 300px) {
-  span.psw {
-    display: block;
-    float: none;
-  }
-  .cancelbtn {
-    width: 100%;
-  }
+  background-color: #8FBC8F;
+  color: white;
 }
 </style>
+<body>
 <div class="body">
     <div th:replace="~{fragments/bodyHeader :: bodyHeader}"/>
-    <a th:text="${userName}"></a>
-    <br/>
-    <div th:replace="~{fragments/footer :: footer}" />
+
+    <h1 style="display:inline" th:text="${member.userName}"></h1>
+    <h1 style="display:inline">'s Posts</h1>
+
+    <div>
+        </tbody>
+        <table class="post-table">
+            <div th:if="${posts != null}">
+                <thead> <tr>
+                    <th>#</th> <th>제목</th> <th>작성자</th>
+                </tr>
+                </thead>
+                <tbody>
+                <span th:if="${posts != null}">
+                <tr th:each="post : ${posts}">
+                <td th:text="${post.id}"></td>
+                <td th:text="${post.title}"></td>
+                <td th:text="${post.writer}"></td>
+             </tr>
+            </span>
+            </div>
+        </table>
+    </div>
+    <div th:replace="~{fragments/footer :: footer}"/>
 </div> <!-- /container -->
 </body>
 </html>

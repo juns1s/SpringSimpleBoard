@@ -50,8 +50,12 @@ public class MemberService {
 //        return memberRepository.findAll();
 //    }
 //
-//    public Member findOne(Long id){
-//        return memberRepository.findOne();
+//    public Member findOneById(Long id){
+//        return memberRepository.findById(id).get();
+//    }
+//
+//    public Member findOneByName(String userName){
+//        return memberRepository.findByuserName(userName).get();
 //    }
 
     private void validateDuplicateMember(MemberForm form) {

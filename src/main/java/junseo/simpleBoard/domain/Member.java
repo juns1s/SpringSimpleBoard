@@ -22,6 +22,6 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", fetch =FetchType.EAGER)
     private List<Post> posts = new ArrayList<>();
 }

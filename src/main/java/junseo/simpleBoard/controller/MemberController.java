@@ -47,9 +47,12 @@ public class MemberController {
 
     @GetMapping("/myPage")
     public String myPage(@AuthenticationPrincipal PrincipalDetail principal, Model model){
-        String userName = principal.getUsername();
-        model.addAttribute("userName", userName);
-        System.out.println(userName);
+        if(principal==null){
+            return "redirect:/login";
+        }
+        Member member = principal.getMember();
+        model.addAttribute("member", member);
+        model.addAttribute("posts", member.getPosts());
         return "member/myPage";
     }
 }
