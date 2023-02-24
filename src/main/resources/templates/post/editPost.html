@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}">
+    <title>Edit Post</title>
+</head>
+<body>
+<div th:replace="~{fragments/bodyHeader :: bodyHeader}"/>
+
+<h2>Edit Post</h2>
+
+<form method="post" th:action="@{/postList/{postId}/edit(postId=${post.id})}" th:object="${post}">
+    <table>
+        <tr>
+            <th>Title</th>
+            <td><input type="text" th:field="*{title}" /></td>
+        </tr>
+        <tr>
+            <th>Writer</th>
+            <td><input type="text" th:field="*{writer}" /></td>
+        </tr>
+        <tr>
+            <th>Content</th>
+            <td><textarea th:field="*{content}"></textarea></td>
+        </tr>
+    </table>
+
+    <button type="submit">Save</button>
+    <button type="button" onclick="location.href='/postList'">Cancel</button>
+</form>
+
+<div class="footer">
+    <div th:replace="~{fragments/footer :: footer}" />
+</div>
+
+</body>
+</html>

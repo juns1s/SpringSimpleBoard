@@ -45,12 +45,11 @@ public class PostService {
         Post post = postRepository.findById(postId).get();
         Member member = memberRepository.findById(memberId).get();
 
-        checkWriter(post, member);
-
         return post.edit(postInformation);
     }
 
-    private void checkWriter(Post post, Member member) {
+    public void checkWriter(Long postId, Member member){
+        Post post = postRepository.findById(postId).get();
         if(post.getMember().getId() != member.getId()){
             throw new IllegalStateException("작성자가 아닙니다.");
         }
