@@ -8,9 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
-
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -22,15 +19,15 @@ public class PostService {
      * 게시글 작성
      */
     @Transactional
-    public Long post(Long memberId,PostInformation postInformation){
+    public Long post(Long memberId, PostForm form){
         //엔티티 조회
         Member member = memberRepository.findById(memberId).get();
 
         //게시글 정보 생성
         Post post = new Post();
         post.setMember(member);
-        post.setTitle(postInformation.getTitle());
-        post.setContent(postInformation.getContent());
+        post.setTitle(form.getTitle());
+        post.setContent(form.getContent());
         post.setWriter(member.getNickName());
 
         postRepository.save(post);
@@ -44,7 +41,7 @@ public class PostService {
     }
 
     @Transactional
-    public Long editPost(Long postId, Long memberId, PostInformation postInformation){
+    public Long editPost(Long postId, Long memberId, PostForm postInformation){
         Post post = postRepository.findById(postId).get();
         Member member = memberRepository.findById(memberId).get();
 

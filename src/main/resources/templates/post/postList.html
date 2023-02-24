@@ -19,18 +19,36 @@ table {
 table tr:not(:first-child):hover {
   background-color: LightGray;
 }
+.button {
+  background-color: #f4511e;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  font-size: 16px;
+  margin: 4px 4px;
+  opacity: 0.6;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button:hover {opacity: 1}
 </style>
 <body>
 <div th:replace="~{fragments/bodyHeader :: bodyHeader}"/>
 
-<h2>Post List</h2>
+<h2 style="margin: 5px">Post List</h2>
+<button type="button" th:onclick="|location.href='@{/postList/newPost}'|" style="float:right; margin-bottom: 10px">글쓰기</button>
 
 <table>
-  <tr>
-    <th>#</th>
-    <th>제목</th>
-    <th>작성자</th>
+  <tr style="background-color: SlateGray">
+    <th style="border: 1px solid #000000;text-align:center">#</th>
+    <th style="border: 1px solid #000000;text-align:center">제목</th>
+    <th style="border: 1px solid #000000;text-align:center">작성자</th>
   </tr>
+
   <tr th:onclick="|location.href='@{/test}'|" th:each="post : ${postList}">
     <td th:text="${post.id}"></td>
     <td th:text="${post.title}"></td>

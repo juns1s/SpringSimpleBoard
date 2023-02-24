@@ -5,7 +5,6 @@ import junseo.simpleBoard.controller.MemberForm;
 import junseo.simpleBoard.domain.Member;
 import junseo.simpleBoard.domain.Post;
 import junseo.simpleBoard.repository.PostRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,13 +30,13 @@ class PostServiceTest {
         MemberForm form = createMemberForm();
         Member member = memberService.join(form);
 
-        PostInformation information= new PostInformation();
+        PostForm information= new PostForm();
         information.setContent("hello world");
         information.setTitle("1st");
         //when
         Long postId = postService.post(member.getId(), information);
         //then
-        Post post = postRepository.findOne(postId);
+        Post post = postRepository.findById(postId).get();
         assertEquals( member.getId(), post.getMember().getId(), "작성자 불일치");
         assertEquals("hello world", post.getContent(), "내용 불일치");
         assertEquals("1st", post.getTitle(), "제목 불일치");
@@ -50,7 +49,7 @@ class PostServiceTest {
         MemberForm form = createMemberForm();
         Member member = memberService.join(form);
 
-        PostInformation information= new PostInformation();
+        PostForm information= new PostForm();
         information.setContent("hello world");
         information.setTitle("1st");
 
@@ -60,7 +59,7 @@ class PostServiceTest {
         postService.deletePost(postId);
 
         //then
-        org.assertj.core.api.Assertions.assertThat(postRepository.findOne(postId)).isNull();
+        org.assertj.core.api.Assertions.assertThat(postRepository.findById(postId)).isEmpty();
     }
 
     @Test
@@ -69,11 +68,11 @@ class PostServiceTest {
         MemberForm form = createMemberForm();
         Member member = memberService.join(form);
 
-        PostInformation information= new PostInformation();
+        PostForm information= new PostForm();
         information.setContent("hello world");
         information.setTitle("1st");
 
-        PostInformation information2= new PostInformation();
+        PostForm information2= new PostForm();
         information.setContent("edited");
         information.setTitle("2nd");
 
@@ -81,8 +80,8 @@ class PostServiceTest {
         //when
         postService.editPost(postId, member.getId(), information2);
         //then
-        assertEquals(postRepository.findOne(postId).getContent(), information2.getContent(),"콘텐츠가 다름");
-        assertEquals(postRepository.findOne(postId).getTitle(), information2.getTitle(),"제목이 다름");
+        assertEquals(postRepository.findById(postId).get().getContent(), information2.getContent(),"콘텐츠가 다름");
+        assertEquals(postRepository.findById(postId).get().getTitle(), information2.getTitle(),"제목이 다름");
     }
 
     @Test
@@ -97,11 +96,11 @@ class PostServiceTest {
         form2.setUserName("444");
         Member member2 = memberService.join(form2);
 
-        PostInformation information= new PostInformation();
+        PostForm information= new PostForm();
         information.setContent("hello world");
         information.setTitle("1st");
 
-        PostInformation information2= new PostInformation();
+        PostForm information2= new PostForm();
         information.setContent("edited");
         information.setTitle("2nd");
 

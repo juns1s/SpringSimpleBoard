@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}" />
+  <meta charset="UTF-8">
+  <title>글 작성</title>
+  <style>
+    form {
+      margin: 20px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      box-sizing: border-box;
+    }
+
+    button[type="submit"] {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #337ab7;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #286090;
+    }
+  </style>
+</head>
+<body>
+<div th:replace="~{fragments/bodyHeader :: bodyHeader}"/>
+<h2 style="text-align: center; margin-top: 20px;">글 쓰기</h2>
+<form role="form" action="/postList/newPost" th:object="${postForm}" method="post">
+
+  <div th:fragment="formErrorsFragment" class="alert alert-danger"
+       role="alert" th:if="${#fields.hasAnyErrors()}">
+    <div th:each="err : ${#fields.allErrors()}" th:text="${err}" />
+  </div>
+
+  <label th:for="title">제목</label>
+  <input type="text" th:field="*{title}" class="form-control" placeholder="제목을 입력하세요."
+         th:class="${#fields.hasErrors('title')}? 'form-control
+          fieldError' : 'form-control'">
+  <p th:if="${#fields.hasErrors('title')}"
+     th:errors="*{title}">Incorrect date</p>
+
+  <label th:for="content">내용</label>
+  <textarea id="content" name="content" rows="10" required></textarea>
+
+  <button type="submit">작성 완료</button>
+</form>
+
+<div class="footer">
+  <div th:replace="~{fragments/footer :: footer}" />
+</div>
+
+</body>
+</html>
