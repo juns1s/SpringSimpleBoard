@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,14 +24,14 @@ public class PostService {
     @Transactional
     public Long post(Long memberId,PostInformation postInformation){
         //엔티티 조회
-        Optional<Member> member = memberRepository.findById(memberId);
+        Member member = memberRepository.findById(memberId).get();
 
         //게시글 정보 생성
         Post post = new Post();
-        post.setMember(member.get());
+        post.setMember(member);
         post.setTitle(postInformation.getTitle());
         post.setContent(postInformation.getContent());
-        post.setWriter(member.get().getNickName());
+        post.setWriter(member.getNickName());
 
         postRepository.save(post);
         return post.getId();
@@ -38,16 +39,16 @@ public class PostService {
 
     @Transactional
     public void deletePost(Long postId){
-        Post post = postRepository.findOne(postId);
-        postRepository.deleteOne(post);
+        Post post = postRepository.findById(postId).get();
+        postRepository.deleteById(postId);
     }
 
     @Transactional
     public Long editPost(Long postId, Long memberId, PostInformation postInformation){
-        Post post = postRepository.findOne(postId);
-        Optional<Member> member = memberRepository.findById(memberId);
+        Post post = postRepository.findById(postId).get();
+        Member member = memberRepository.findById(memberId).get();
 
-        checkWriter(post, member.get());
+        checkWriter(post, member);
 
         return post.edit(postInformation);
     }

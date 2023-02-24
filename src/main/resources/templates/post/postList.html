@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}">
+  <title>Simple Board</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<style>
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+ th,td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+table tr:not(:first-child):hover {
+  background-color: LightGray;
+}
+</style>
+<body>
+<div th:replace="~{fragments/bodyHeader :: bodyHeader}"/>
+
+<h2>Post List</h2>
+
+<table>
+  <tr>
+    <th>#</th>
+    <th>제목</th>
+    <th>작성자</th>
+  </tr>
+  <tr th:onclick="|location.href='@{/test}'|" th:each="post : ${postList}">
+    <td th:text="${post.id}"></td>
+    <td th:text="${post.title}"></td>
+    <td th:text="${post.writer}"></td>
+  </tr>
+  </span>
+  </tr>
+</table>
+
+<div class="footer">
+  <div th:replace="~{fragments/footer :: footer}" />
+</div>
+
+</body>
+</html>
+
+
