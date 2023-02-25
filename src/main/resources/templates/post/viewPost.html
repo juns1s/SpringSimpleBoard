@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+<head th:replace="~{fragments/header :: header}">
+    <title th:text="Post${postId}"></title>
+</head>
+
+<style>
+h2{
+    margin: 5px;
+}
+h3{
+    margin: 10px;
+    text-align:center;
+}
+h5{
+    margin: 5px;
+    text-align: right;
+}
+h6{
+width: 100%;
+      padding: 10px;
+      margin: 3px;
+      border-top: 1px solid Black;
+      border-bottom: 1px solid Black;
+      box-sizing: border-box;
+}
+.button-container{
+    display:flex;
+    justify-content: space-between;
+}
+    button[type="list"] {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: Grey;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      margin-right:auto;
+    }
+
+    button[type="list"]:hover {
+      background-color: Grey;
+    }
+
+    button[type="edit"] {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #337ab7;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      margin-left:auto;
+    }
+
+    button[type="edit"]:hover {
+      background-color: #286090;
+    }
+</style>
+
+<body>
+<div th:replace="~{fragments/bodyHeader :: bodyHeader}"/>
+
+        <h3 th:text="${post.title}"></h3>
+        <h5>작성자</h5>
+        <h5 th:text="${post.writer}"></h5>
+
+        <h6 th:text="${post.content}"></h6>
+
+<div class="button-container">
+    <button type="list" onclick="location.href='/postList'">목록</button>
+    <button type="edit" th:onclick="|location.href='@{/postList/post/edit/{postId}(postId=${post.id})}'|">수정</button>
+</div>
+
+
+<div class="footer">
+    <div th:replace="~{fragments/footer :: footer}" />
+</div>
+
+</body>
+</html>

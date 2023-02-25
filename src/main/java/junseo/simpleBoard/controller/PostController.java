@@ -13,10 +13,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -57,28 +55,38 @@ public class PostController {
     public String readPost(@PathVariable Long postId, Model model){
         Post post = postRepository.findById(postId).get();
         model.addAttribute("post", post);
-        return "post/view";
+        return "post/viewPost";
     }
 
-    @GetMapping("postList/post/{postId}/edit")
-    public String editPostForm(@AuthenticationPrincipal PrincipalDetail principal,@PathVariable Long postId ,Model model, BindingResult result){
+    @GetMapping("postList/post/edit/{postId}")
+    public String editPostForm(@AuthenticationPrincipal PrincipalDetail principal,
+                               @PathVariable Long postId,
+                               Model model){
+
         Member member = principal.getMember();
+
         try{
             postService.checkWriter(postId, member);
         }catch (IllegalStateException e){
             e.printStackTrace();
-            result.reject("수정 실패", "작성자가 아닙니다.");
-            return "postList/post/{postId}";
+            return "redirect:/postList/post/{postId}";
         }
+
+        model.addAttribute("postId", postId);
+        model.addAttribute("postForm", new PostForm());
         return "post/editPost";
     }
 
-    @PostMapping("postList/post/{postId}/edit")
-    public String editPost(@PathVariable Long postId, @ModelAttribute("post") @Valid PostForm form, BindingResult result){
+    @PostMapping("postList/post/edit/{postId}")
+    public String editPost(@AuthenticationPrincipal PrincipalDetail principal,
+                           @PathVariable Long postId,
+                           @ModelAttribute("post") @Valid PostForm form,
+                           BindingResult result){
+
         if(result.hasErrors()){
             return "post/editPosts";
         }
-        Long writerId = postRepository.findById(postId).get().getMember().getId();
+        Long writerId = principal.getMember().getId();
         postService.editPost(postId, writerId, form);
         return "redirect:/postList/post/{postId}";
     }

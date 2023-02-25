@@ -19,22 +19,21 @@ table {
 table tr:not(:first-child):hover {
   background-color: LightGray;
 }
-.button {
-  background-color: #f4511e;
-  border: none;
-  color: white;
-  padding: 16px 32px;
-  text-align: center;
-  font-size: 16px;
-  margin: 4px 4px;
-  opacity: 0.6;
-  transition: 0.3s;
-  display: inline-block;
-  text-decoration: none;
-  cursor: pointer;
+
+button {
+margin-top: 5px;
+margin-right: 10px;
+padding: 5px 10px;
+background-color: #337ab7;
+color: white;
+border: none;
+border-radius: 3px;
+cursor: pointer;
 }
 
-.button:hover {opacity: 1}
+button:hover {
+background-color: #286090;
+}
 </style>
 <body>
 <div th:replace="~{fragments/bodyHeader :: bodyHeader}"/>
@@ -43,16 +42,21 @@ table tr:not(:first-child):hover {
 <button type="button" th:onclick="|location.href='@{/postList/newPost}'|" style="float:right; margin-bottom: 10px">글쓰기</button>
 
 <table>
-  <tr style="background-color: SlateGray">
+  <colgroup>
+    <col width="10%"/>
+    <col width="60%"/>
+    <col width="20%"/>
+  </colgroup>
+  <tr style="background-color: White">
     <th style="border: 1px solid #000000;text-align:center">#</th>
     <th style="border: 1px solid #000000;text-align:center">제목</th>
     <th style="border: 1px solid #000000;text-align:center">작성자</th>
   </tr>
 
   <tr th:onclick="|location.href='/postList/post'+'/${post.id}'|" th:each="post : ${postList}" style="cursor: pointer">
-    <td th:text="${post.id}"></td>
-    <td th:text="${post.title}"></td>
-    <td th:text="${post.writer}"></td>
+    <td style= "text-align:center" th:text="${post.id}"></td>
+    <td style= "text-align:center" th:text="${post.title}"></td>
+    <td style="text-align:center" th:text="${post.writer}"></td>
   </tr>
   </span>
   </tr>

@@ -1,31 +1,69 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/header :: header}">
-    <title>Edit Post</title>
+<head th:replace="~{fragments/header :: header}" />
+<meta charset="UTF-8">
+<title>Write Post</title>
+<style>
+    form {
+      margin: 20px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      box-sizing: border-box;
+    }
+
+    button[type="submit"] {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #337ab7;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #286090;
+    }
+  </style>
 </head>
 <body>
 <div th:replace="~{fragments/bodyHeader :: bodyHeader}"/>
+<h2 style="text-align: center; margin-top: 20px;">글 수정</h2>
 
-<h2>Edit Post</h2>
+<form role="form" method="post" th:action="@{/postList/post/edit/{postId}(postId=${postId})}" th:object="${postForm}">
 
-<form method="post" th:action="@{/postList/{postId}/edit(postId=${post.id})}" th:object="${post}">
-    <table>
-        <tr>
-            <th>Title</th>
-            <td><input type="text" th:field="*{title}" /></td>
-        </tr>
-        <tr>
-            <th>Writer</th>
-            <td><input type="text" th:field="*{writer}" /></td>
-        </tr>
-        <tr>
-            <th>Content</th>
-            <td><textarea th:field="*{content}"></textarea></td>
-        </tr>
-    </table>
+    <div th:fragment="formErrorsFragment" class="alert alert-danger"
+         role="alert" th:if="${#fields.hasAnyErrors()}">
+        <div th:each="err : ${#fields.allErrors()}" th:text="${err}" />
+    </div>
 
-    <button type="submit">Save</button>
-    <button type="button" onclick="location.href='/postList'">Cancel</button>
+    <label th:for="title">제목</label>
+    <input type="text" th:field="*{title}" class="form-control" placeholder="제목을 입력하세요."
+           th:class="${#fields.hasErrors('title')}? 'form-control
+          fieldError' : 'form-control'" required>
+    <p th:if="${#fields.hasErrors('title')}"
+       th:errors="*{title}">Incorrect date</p>
+
+    <label th:for="content">내용</label>
+    <textarea id="content" name="content" rows="10" required></textarea>
+
+    <button type="submit">저장</button>
+    <button type="cancel" onclick="location.href='/postList'">취소</button>
 </form>
 
 <div class="footer">
