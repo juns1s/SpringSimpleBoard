@@ -90,4 +90,20 @@ public class PostController {
         postService.editPost(postId, writerId, form);
         return "redirect:/postList/post/{postId}";
     }
+
+    @PostMapping("postList/post/delete/{postId}")
+    public String deletePost(@AuthenticationPrincipal PrincipalDetail principal, @PathVariable Long postId) {
+
+        Member member = principal.getMember();
+
+        try {
+            postService.checkWriter(postId, member);
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+            return "redirect:/postList/post/{postId}";
+        }
+
+        postService.deletePost(postId);
+        return "redirect:/postList";
+    }
 }
