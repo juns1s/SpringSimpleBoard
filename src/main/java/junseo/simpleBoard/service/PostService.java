@@ -34,12 +34,23 @@ public class PostService {
         return post.getId();
     }
 
+    /**
+     * 게시글 삭제
+     * @param postId
+     */
     @Transactional
     public void deletePost(Long postId){
         Post post = postRepository.findById(postId).get();
         postRepository.deleteById(postId);
     }
 
+    /**
+     * 게시글 수정
+     * @param postId
+     * @param memberId
+     * @param postInformation
+     * @return Long
+     */
     @Transactional
     public Long editPost(Long postId, Long memberId, PostForm postInformation){
         Post post = postRepository.findById(postId).get();
@@ -48,6 +59,11 @@ public class PostService {
         return post.edit(postInformation);
     }
 
+    /**
+     * 게시글 작성자 확인
+     * @param postId
+     * @param member
+     */
     public void checkWriter(Long postId, Member member){
         Post post = postRepository.findById(postId).get();
         if(post.getMember().getId() != member.getId()){

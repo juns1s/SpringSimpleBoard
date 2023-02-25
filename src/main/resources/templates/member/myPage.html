@@ -21,8 +21,7 @@
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: center;
-  background-color: #8FBC8F;
-  color: white;
+  background-color: White;
 }
 </style>
 <body>
@@ -37,12 +36,21 @@
         <table class="post-table">
             <div th:if="${posts != null}">
                 <thead> <tr>
-                    <th>#</th> <th>제목</th> <th>작성자</th>
+                    <colgroup>
+                        <col width="10%"/>
+                        <col width="60%"/>
+                        <col width="20%"/>
+                    </colgroup>
+                <tr style="background-color: White;">
+                    <th style="border: 1px solid #000000;text-align:center">#</th>
+                    <th style="border: 1px solid #000000;text-align:center">제목</th>
+                    <th style="border: 1px solid #000000;text-align:center">작성자</th>
+                </tr>
                 </tr>
                 </thead>
                 <tbody>
                 <span th:if="${posts != null}">
-                <tr th:each="post : ${posts}">
+                <tr th:each="post : ${posts}" th:onclick="|location.href='/postList/post'+'/${post.id}'|" style="cursor: pointer">
                 <td th:text="${post.id}"></td>
                 <td th:text="${post.title}"></td>
                 <td th:text="${post.writer}"></td>
