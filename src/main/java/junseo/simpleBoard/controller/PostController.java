@@ -26,6 +26,9 @@ public class PostController {
     private final PostService postService;
     private final PostRepository postRepository;
 
+    /**
+     * 게시글 목록
+     */
     @GetMapping("/postList")
     public String posts(Model model){
         List<Post> postList = postRepository.findAll();
@@ -33,6 +36,9 @@ public class PostController {
         return "post/postList";
     }
 
+    /**
+     * 새 게시글 작성
+     */
     @GetMapping("/postList/newPost")
     public String createPostForm(@AuthenticationPrincipal PrincipalDetail principal,Model model){
         if(principal==null){
@@ -51,6 +57,9 @@ public class PostController {
         return "redirect:/postList";
     }
 
+    /**
+     * 게시글 열람
+     */
     @GetMapping("postList/post/{postId}")
     public String readPost(@PathVariable Long postId, Model model){
         Post post = postRepository.findById(postId).get();
@@ -58,6 +67,9 @@ public class PostController {
         return "post/viewPost";
     }
 
+    /**
+     * 게시글 수정
+     */
     @GetMapping("postList/post/edit/{postId}")
     public String editPostForm(@AuthenticationPrincipal PrincipalDetail principal,
                                @PathVariable Long postId,
@@ -94,6 +106,9 @@ public class PostController {
         return "redirect:/postList/post/{postId}";
     }
 
+    /**
+     * 게시글 삭제
+     */
     @PostMapping("postList/post/delete/{postId}")
     public String deletePost(@AuthenticationPrincipal PrincipalDetail principal, @PathVariable Long postId, RedirectAttributes rttr) {
 

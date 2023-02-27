@@ -7,6 +7,9 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 회원 엔티티
+ */
 @Entity
 @Getter @Setter
 public class Member {

@@ -20,6 +20,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+/**
+ * 스프링 시큐리티에서 사용자 검증시 사용.
+ */
 @RequiredArgsConstructor
 @Service
 @Slf4j
@@ -34,7 +37,7 @@ public class UserSecurityService implements UserDetailsService {
             throw new UsernameNotFoundException("사용자를 찾을 수 없습니다.");
         }
         Member member = findMember.get();
-//        return new User(member.getUserName(), member.getPassword(), authorities);
+
         return new PrincipalDetail(member);
     }
 }

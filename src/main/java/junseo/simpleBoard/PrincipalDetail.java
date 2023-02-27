@@ -9,6 +9,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 
+/**
+ * 스프링 시큐리티에서의 사용 및 AuthenticationPrincipal에서 사용
+ */
 @Getter
 public class PrincipalDetail implements UserDetails {
 

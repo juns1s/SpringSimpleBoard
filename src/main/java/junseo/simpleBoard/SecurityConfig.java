@@ -14,6 +14,9 @@ import org.springframework.security.web.header.writers.frameoptions.XFrameOption
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Repository;
 
+/**
+ * 스프링 시큐리티 설정
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {

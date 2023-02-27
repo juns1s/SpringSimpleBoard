@@ -5,6 +5,9 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * 로그인을 위한 폼
+ */
 @Getter @Setter
 public class LoginForm {
     @NotEmpty(message = "회원이름은 필수")

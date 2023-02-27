@@ -4,6 +4,9 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * 게시글 등록을 위한 폼
+ */
 @Getter @Setter
 public class PostForm {
 

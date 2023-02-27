@@ -36,7 +36,6 @@ public class PostService {
 
     /**
      * 게시글 삭제
-     * @param postId
      */
     @Transactional(readOnly = false)
     public void deletePost(Long postId){
@@ -46,10 +45,6 @@ public class PostService {
 
     /**
      * 게시글 수정
-     * @param postId
-     * @param memberId
-     * @param postInformation
-     * @return Long
      */
     @Transactional(readOnly = false)
     public Long editPost(Long postId, Long memberId, PostForm postInformation){
@@ -64,8 +59,6 @@ public class PostService {
 
     /**
      * 게시글 작성자 확인
-     * @param postId
-     * @param member
      */
     public void checkWriter(Long postId, Member member){
         Post post = postRepository.findById(postId).get();

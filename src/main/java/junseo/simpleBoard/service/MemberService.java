@@ -41,10 +41,16 @@ public class MemberService {
         return member;
     }
 
+    /**
+     * 아이디로 조회
+     */
     public Member findOne(Long memberId){
         return memberRepository.findById(memberId).get();
     }
 
+    /**
+     * 회원가입시 중복회원 검증
+     */
     private void validateDuplicateMember(MemberForm form) {
         if(!memberRepository.findByuserName(form.getUserName()).isEmpty())
             throw new IllegalStateException("이미 존재하는 회원.");

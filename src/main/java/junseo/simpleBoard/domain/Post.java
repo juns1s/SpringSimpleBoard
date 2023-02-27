@@ -5,6 +5,9 @@ import junseo.simpleBoard.service.PostForm;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * 게시글 엔티티
+ */
 @Entity
 @Table(name = "posts")
 @Getter @Setter

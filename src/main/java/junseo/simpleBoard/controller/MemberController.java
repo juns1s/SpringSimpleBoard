@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class MemberController {
     private final MemberService memberService;
 
+    /**
+     * 회원 가입
+     */
     @GetMapping("/joinMember")
     public String createForm(Model model){
         model.addAttribute("memberForm", new MemberForm());
@@ -41,17 +44,24 @@ public class MemberController {
         return "redirect:/";
     }
 
+    /**
+     * 로그인
+     * 스프링 시큐리티 위임
+     */
     @GetMapping("/login")
     public String login(){
         return "/member/memberLoginForm";
     }
 
+    /**
+     * 마이페이지
+     */
     @GetMapping("/myPage")
     public String myPage(@AuthenticationPrincipal PrincipalDetail principal, Model model){
         if(principal==null){
             return "redirect:/login";
         }
-        Member member = memberService.findOne(principal.getMember().getId());
+        Member member = memberService.findOne(principal.getMember().getId());   //더티체킹
         model.addAttribute("member", member);
         model.addAttribute("posts", member.getPosts());
         return "member/myPage";
