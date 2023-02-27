@@ -51,7 +51,7 @@ public class MemberController {
         if(principal==null){
             return "redirect:/login";
         }
-        Member member = principal.getMember();
+        Member member = memberService.findOne(principal.getMember().getId());
         model.addAttribute("member", member);
         model.addAttribute("posts", member.getPosts());
         return "member/myPage";

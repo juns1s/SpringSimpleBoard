@@ -23,12 +23,16 @@
   text-align: center;
   background-color: White;
 }
+
+td{
+ text-align:center;
+}
 </style>
 <body>
 <div class="body">
     <div th:replace="~{fragments/bodyHeader :: bodyHeader}"/>
 
-    <h1 style="display:inline" th:text="${member.userName}"></h1>
+    <h1 style="display:inline; margin-left:5px;" th:text="${member.userName}"></h1>
     <h1 style="display:inline">'s Posts</h1>
 
     <div>
