@@ -1,7 +1,5 @@
 package junseo.simpleBoard.service;
 
-import jakarta.persistence.NoResultException;
-import junseo.simpleBoard.controller.LoginForm;
 import junseo.simpleBoard.controller.MemberForm;
 import junseo.simpleBoard.domain.Member;
 import junseo.simpleBoard.domain.UserRole;
@@ -11,9 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -45,18 +40,6 @@ public class MemberService {
         memberRepository.save(member);
         return member;
     }
-
-//    public List<Member> findMembers(){
-//        return memberRepository.findAll();
-//    }
-//
-//    public Member findOneById(Long id){
-//        return memberRepository.findById(id).get();
-//    }
-//
-//    public Member findOneByName(String userName){
-//        return memberRepository.findByuserName(userName).get();
-//    }
 
     private void validateDuplicateMember(MemberForm form) {
         if(!memberRepository.findByuserName(form.getUserName()).isEmpty())

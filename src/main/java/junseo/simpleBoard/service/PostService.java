@@ -18,7 +18,7 @@ public class PostService {
     /**
      * 게시글 작성
      */
-    @Transactional
+    @Transactional(readOnly = false)
     public Long post(Long memberId, PostForm form){
         //엔티티 조회
         Member member = memberRepository.findById(memberId).get();
@@ -38,7 +38,7 @@ public class PostService {
      * 게시글 삭제
      * @param postId
      */
-    @Transactional
+    @Transactional(readOnly = false)
     public void deletePost(Long postId){
         Post post = postRepository.findById(postId).get();
         postRepository.deleteById(postId);
@@ -51,12 +51,15 @@ public class PostService {
      * @param postInformation
      * @return Long
      */
-    @Transactional
+    @Transactional(readOnly = false)
     public Long editPost(Long postId, Long memberId, PostForm postInformation){
         Post post = postRepository.findById(postId).get();
         Member member = memberRepository.findById(memberId).get();
-
         return post.edit(postInformation);
+    }
+
+    public Post findOne(Long postId){
+        return postRepository.findById(postId).get();
     }
 
     /**

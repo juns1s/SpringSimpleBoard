@@ -27,7 +27,6 @@ public class Post {
      */
     public void setMember(Member member){
         this.member = member;
-        member.getPosts().add(this);    //작성 리스트에 추가.
     }
 
     /**
@@ -38,14 +37,5 @@ public class Post {
         this.title = postInformation.getTitle();
         this.content = postInformation.getContent();
         return this.getId();
-    }
-
-    /**
-     * 게시글 삭제 메소드
-     * 자신이 작성한 게시글만 삭제 가능함.
-     */
-    public void delete(){
-        //작성 목록에서 삭제
-        member.getPosts().remove(this);
     }
 }

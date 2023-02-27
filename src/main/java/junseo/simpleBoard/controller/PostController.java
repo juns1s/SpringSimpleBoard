@@ -61,7 +61,7 @@ public class PostController {
     @GetMapping("postList/post/edit/{postId}")
     public String editPostForm(@AuthenticationPrincipal PrincipalDetail principal,
                                @PathVariable Long postId,
-                               Model model){
+                               Model model, RedirectAttributes rttr){
 
         Member member = principal.getMember();
 
@@ -69,6 +69,9 @@ public class PostController {
             postService.checkWriter(postId, member);
         }catch (IllegalStateException e){
             e.printStackTrace();
+            Post post = postService.findOne(postId);
+            rttr.addFlashAttribute("post", post);
+            rttr.addFlashAttribute("errMsg", e.getMessage());
             return "redirect:/postList/post/{postId}";
         }
 
@@ -92,14 +95,17 @@ public class PostController {
     }
 
     @PostMapping("postList/post/delete/{postId}")
-    public String deletePost(@AuthenticationPrincipal PrincipalDetail principal, @PathVariable Long postId) {
+    public String deletePost(@AuthenticationPrincipal PrincipalDetail principal, @PathVariable Long postId, RedirectAttributes rttr) {
 
         Member member = principal.getMember();
 
-        try {
+        try{
             postService.checkWriter(postId, member);
-        } catch (IllegalStateException e) {
+        }catch (IllegalStateException e){
             e.printStackTrace();
+            Post post = postService.findOne(postId);
+            rttr.addFlashAttribute("post", post);
+            rttr.addFlashAttribute("errMsg", e.getMessage());
             return "redirect:/postList/post/{postId}";
         }
 
